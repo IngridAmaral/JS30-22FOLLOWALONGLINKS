@@ -26,6 +26,29 @@
     </div>
 
   <script>
+    const triggers = document.querySelectorAll('a'); //every single link on the page
+    const highlight = document.createElement('span'); 
+    highlight.classList.add('highlight'); //add the class of hightligth
+    document.body.append(highlight); //put it in to the DOM
+
+    function highlightLink() {
+        const linkCoords = this.getBoundingClientRect(); //shows all the information of where in the page the cursor is
+        const coords = { //resolve the problem with the x and y 
+            width: linkCoords.width,
+            height: linkCoords.height,
+            top: linkCoords.top + window.scrollY,
+            left: linkCoords.left + window.scrollX
+        };
+        
+        console.log(linkCoords);
+        highlight.style.width = `${coords.width}px`; //dinamic applies the style
+        highlight.style.height = `${coords.height}px`;  
+        highlight.style.transform = `translate(${coords.left}px, ${coords.top}px`;
+
+    }
+
+    triggers.forEach(a => a.addEventListener('mouseenter', highlightLink)) //for each link the event mouseenter is added and the function highligthLink runs
+    
   </script>
 </body>
 </html>
